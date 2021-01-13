@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Coding Quiz Challenge</title>
+        <title>Coding Quiz Challenge - High Scores</title>
 
         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,57 +15,53 @@
         <link rel="stylesheet" href="style.css" />
     </head>
 
-    <body onload="startQuiz(), viewHighScores()">
+    <body onload="HighScores(), backToMainPage(), stopTimer()">
 
         <!-- Nav Template for main page && question page only-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <button id="viewBtn" class="navbar-brand">
-                    View Highscores
+                <button id="mainPageBtn" class="navbar-brand">
+                    Back to Main Page
                 </button>
-                <div>
-                    <h4>
-                        Time Left: <span id="timer">0</span>
-                    </h4>
-                </div>
             </div>
         </nav>
 
-        <!-- HTML Template for main quiz page -->
-        <div class="wrapper" id="main-page">
+        <!-- HTML Template for initials page -->
+        <div class="wrapper inactive" id="user-page">
+            
             <!-- Header -->
             <header>
-                <h1>Coding Quiz Challenge</h1>
+                <h1>TIME'S UP!</h1>
+                <h2>PROVIDE SCORE</h2>
             </header>
             <!-- Card -->
             <div class="card">
                 <!-- Text on code quiz -->
                 <div class="card-body">
                     <p>
-                        Try to answer the following code-related questions within the time limit.
-                        Keep in mind that incorrect answers will deduct the time remaining by 5 seconds!
+                        ASK FOR USERS INITIAL WITH SUBMIT BUTTON.
                     </p>
                 </div>
-                <!-- button to start quiz -->
+                <!-- button to submit users initials -->
                 <div class="card-footer">
-                    <button id="startBtn" class="btn">Start Quiz</button>
+                    <button id="submitBtn" class="btn">Submit</button>
                 </div>
             </div>
         </div>
 
 
-        <!-- HTML Template for quiz questions page -->
-        <div class="wrapper inactive" id="quiz-page">
+        <!-- HTML Template for High Scores page -->
+        <div class="wrapper" id="high-score-page">
             <!-- Header -->
             <header>
-                <h1>QUESTION</h1>
+                <h1>HIGH SCORES</h1>
             </header>
             <!-- Card -->
             <div class="card">
                 <!-- Text on code quiz -->
                 <div class="card-body">
                     <p>
-                        MULTIPLE CHOICE
+                        ORDERED LIST WITH USERS INITIALS AND SCORE. SORT BY SCORE
                     </p>
                 </div>
             </div>
