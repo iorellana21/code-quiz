@@ -30,12 +30,8 @@ var timer = 5;
 
 
 
-
-
-
 // function when Start Quiz button is clicked
 function startQuiz() {
-    console.log("Main Page");
     // When Start Quiz is clicked, toggle .inactive class to main-page && quiz-page
     startBtn.addEventListener("click", function (event) {
         console.log("Start Quiz button has been clicked");
@@ -46,9 +42,6 @@ function startQuiz() {
         startTimer();
     });
 }
-
-
-
 
 
 // function when View Highscores button is clicked
@@ -64,13 +57,8 @@ function viewHighScores() {
 }
 
 
-
-
-
-
 // function when Submit button is clicked
 function HighScores() {
-    console.log("timer has reached 0");
     // When Submit button is clicked, toggle .inactive class to user-page && high-score-page
     submitBtn.addEventListener("click", function (event) {
         // update page with highscore page by applying/removing .inactive class
@@ -91,15 +79,6 @@ function backToMainPage() {
 
 
 
-
-
-
-
-
-
-
-
-
 // start timer
 function startTimer() {
     timerId.textContent = timer;
@@ -110,14 +89,8 @@ function startTimer() {
         // console.log("timer:" + timer);
         timerId.textContent = timer;
         if (timer === 0) {
-            stopTimer();
+            clearInterval(timerInterval);
+            document.location.href = "/Users/fish/Desktop/ru-coding-bootcamp/my-ru-repos/code-quiz/highscore.html";
         }
     }, 1000);
-}
-
-
-// stop timer
-function stopTimer() {
-    clearInterval(timerInterval);
-    document.location.href = "/Users/fish/Desktop/ru-coding-bootcamp/my-ru-repos/code-quiz/highscore.html";
 }
