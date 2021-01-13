@@ -28,9 +28,6 @@ var timerId = document.querySelector("#timer");
 // timer
 var timer = 5;
 
-// timerInterval
-var timerInterval;
-
 
 
 
@@ -82,7 +79,6 @@ function HighScores() {
     });
 }
 
-
 function backToMainPage() {
     // When Back to Main Page button is clicked, go back to index.html
     mainPageBtn.addEventListener("click", function (event) {
@@ -109,7 +105,7 @@ function startTimer() {
     timerId.textContent = timer;
     console.log("timer starts");
 
-    timerInterval = setInterval(function () {
+    var timerInterval = setInterval(function () {
         timer--;
         // console.log("timer:" + timer);
         timerId.textContent = timer;
@@ -123,11 +119,5 @@ function startTimer() {
 // stop timer
 function stopTimer() {
     clearInterval(timerInterval);
-
-    mainPageBtn.addEventListener("click", function (event) {
-        // redirect to highscore page - user initial page
-        document.location.href = "/Users/fish/Desktop/ru-coding-bootcamp/my-ru-repos/code-quiz/highscore.html";
-        userPage.classList.toggle("inactive");
-        highscorePage.classList.toggle("inactive");
-    });
+    document.location.href = "/Users/fish/Desktop/ru-coding-bootcamp/my-ru-repos/code-quiz/highscore.html";
 }
