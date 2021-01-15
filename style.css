@@ -41,6 +41,10 @@ h1{
     color: red;
 }
 
+h2{
+  color: blue;
+}
+
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;
@@ -76,6 +80,8 @@ h1{
   text-align: center;
   cursor: pointer;
 }
+
+
 
 @media (max-width: 690px) {
   .btn {
