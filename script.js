@@ -142,8 +142,6 @@ function showQuestions() {
                 console.log("correct!");
             }
 
-
-
             // increase questionIndex by 1
             questionIndex++;
             // rerun function until timer reaches 0 or questionIndex reaches total questions
