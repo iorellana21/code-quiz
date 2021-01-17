@@ -248,7 +248,7 @@ function viewHighScores() {
 // function when Back to Main page button is clicked
 function backToMainPage() {
     mainPageBtn.addEventListener("click", function (event) {
-        console.log("Back to Main Page button has been clicked or page has been refreshed");
+        console.log("Back to Main Page button has been clicked");
         // clear timerId
         timerId.textContent = "";
         // redirect back to mainPage
