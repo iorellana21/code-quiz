@@ -36,7 +36,7 @@ User can click 'View Scores' button or 'Start Quiz' button.
     6. Can click Return to Main Page button to start again
 
 ## generatePassword
-![alt text](link to pic "code-quiz-main-page")
+![alt text](https://raw.githubusercontent.com/iorellana21/code-quiz/main/assets/code-quiz-main-page.png "code-quiz-main-page")
 
 ---
 ## Credits
