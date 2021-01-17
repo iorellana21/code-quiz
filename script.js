@@ -78,7 +78,7 @@ var questionArr = [
 var userInitials = "";
 
 // create an array and check if there is data in the 'users' key in localStorage
-// if true, explands the array and adds another index
+// if true, expand the array and add another index
 // if false, creates the first index in the array
 var userArray = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -239,6 +239,7 @@ function scoreList() {
     viewList();
 }
 
+// function to take user to view scores
 function viewList() {
     // create ordered list and append to page to contain user initials and score
     var listScore = document.createElement("ol");
