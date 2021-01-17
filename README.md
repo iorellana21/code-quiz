@@ -35,8 +35,17 @@ User can click 'View Scores' button or 'Start Quiz' button.
     5. List of all users and their scores display on the page
     6. Can click Return to Main Page button to start again
 
-## generatePassword
+## Main Page
 ![alt text](https://raw.githubusercontent.com/iorellana21/code-quiz/main/assets/code-quiz-main-page.png "code-quiz-main-page")
+
+## Questions Page
+![alt text](questions "code-quiz-question-page")
+
+## User initials Page
+![alt text](initials "code-quiz-initials-page")
+## Score Page
+![alt text](score "code-quiz-score-page")
+
 
 ---
 ## Credits
