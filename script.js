@@ -147,6 +147,7 @@ function showQuestions() {
             }
             else {
                 console.log("incorrect!");
+                timer = timer - 5;
             }
             // increase questionIndex by 1
             questionIndex++;
@@ -157,7 +158,7 @@ function showQuestions() {
 }
 
 // function when Submit button is clicked
-function HighScores() {
+function highScores() {
     submitBtn.addEventListener("click", function (event) {
         // update page with highscore page by applying/removing .inactive class
         userPage.classList.toggle("inactive");
