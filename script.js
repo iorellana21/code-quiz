@@ -21,6 +21,11 @@ var submitBtn = document.querySelector("#submitBtn");
 // get Main Page button
 var mainPageBtn = document.querySelector("#mainPageBtn");
 
+// variable to display question
+var question = document.querySelector("#question");
+// variable to display choices
+var container = document.querySelector("#container");
+
 // get timer
 var timerId = document.querySelector("#timer");
 // set timer
@@ -32,11 +37,6 @@ var totalScoreOutput = document.querySelector("#total-score");
 var scoreCount = 0;
 // total score
 var totalScore = 0;
-
-// variable to display question
-var question = document.querySelector("#question");
-// variable to display choices
-var container = document.querySelector("#container");
 
 // user initials
 var userInput = document.querySelector("#user-input");
@@ -73,6 +73,14 @@ var questionArr = [
         choices: ["javascript", "terminal/bash", "for loops", "console log"]
     }
 ];
+
+// assign value to userInitials variable
+var userInitials = "";
+
+// create an array and check if there is data in the 'users' key in localStorage
+// if true, explands the array and adds another index
+// if false, creates the first index in the array
+var userArray = JSON.parse(localStorage.getItem("users")) || [];
 
 // function to start timer when Start Quiz button is clicked
 function startQuiz() {
@@ -131,7 +139,6 @@ function showQuestions() {
 
         // loop to create li tags to display number of choices per question based on questionIndex
         for (var i = 0; i < questionArr[questionIndex].choices.length; i++) {
-
             // create li tag to hold choice, append to ordered list and display each choice
             var choiceTag = document.createElement("li");
             listTag.appendChild(choiceTag);
@@ -166,12 +173,9 @@ function showQuestions() {
             });
         }
     }
-    // else {
-    //     highScores();
-    // }
 }
 
-// function to navigate to userPage when quiz is over
+// function to navigate to userPage with Submit button
 function highScores() {
     // opens userPage for to display total score and ask for user input
     mainNav.classList.add("inactive");
@@ -182,52 +186,12 @@ function highScores() {
     // display total score
     totalScoreOutput.textContent = totalScore;
 
+    // Submit button has been clicked
     submitBtn.addEventListener("click", function (event) {
-
+        console.log("Submit button has been clicked");
         userPage.classList.add("inactive");
         highscorePage.classList.remove("inactive");
-
-        // store user initials
-        var userInitials = userInput.value;
-        // display initials
-        console.log(userInitials);
-
-        // create an array that checks if there is info in the 'users' key in localStorage
-        // if no items, creates the first index in the array
-        // if there are items, explands the array and adds another index
-        var array = JSON.parse(localStorage.getItem("users")) || [];
-
-        // object containing totalScore and userInitials
-        var user = {
-            score: totalScore,
-            initials: userInitials
-        };
-
-        // push values from user object to array
-        array.push(user);
-
-        // store array data as an item inside 'users' key
-        localStorage.setItem("users", JSON.stringify(array));
-
-        // create ordered list and append to page to contain user initials and score
-        var listScore = document.createElement("ol");
-        highScore.appendChild(listScore);
-        listScore.style.display = "block";
-        listScore.style.margin = "0 auto";
-        listScore.style.width = "fit-content";
-
-        // loop through length of array and display user initials and score
-        for (var i = 0; i < array.length; i++) {
-
-            // assign score and initials values coming from array
-            var userScore = array[i].score;
-            var userInitials = array[i].initials;
-
-            // create li tag, append to ordered list
-            var userInfo = document.createElement("li");
-            listScore.appendChild(userInfo);
-            userInfo.textContent = userInitials + " - " + userScore;
-        }
+        scoreList();
     });
 }
 
@@ -241,22 +205,59 @@ function viewHighScores() {
         quizPage.classList.add("inactive");
         subNav.classList.remove("inactive");
         highscorePage.classList.remove("inactive");
-
+        viewList();
     });
 }
 
 // function when Back to Main page button is clicked
 function backToMainPage() {
     mainPageBtn.addEventListener("click", function (event) {
-        console.log("Back to Main Page button has been clicked");
         // clear timerId
         timerId.textContent = "";
-        // redirect back to mainPage
-        mainNav.classList.remove("inactive");
-        mainPage.classList.remove("inactive");
-        subNav.classList.add("inactive");
-        highscorePage.classList.add("inactive");
+        window.location.reload();
     });
+}
+
+// function to store user data in localStorage
+function scoreList() {
+    // assign value to userInitials variable
+    userInitials = userInput.value;
+    // display initials
+    console.log(userInitials);
+
+    // object containing totalScore and userInitials
+    var user = {
+        score: totalScore,
+        initials: userInitials
+    };
+
+    // push values from user object to array
+    userArray.push(user);
+
+    // store array data as an item inside 'users' key
+    localStorage.setItem("users", JSON.stringify(userArray));
+    viewList();
+}
+
+function viewList() {
+    // create ordered list and append to page to contain user initials and score
+    var listScore = document.createElement("ol");
+    highScore.appendChild(listScore);
+    listScore.style.display = "block";
+    listScore.style.margin = "0 auto";
+    listScore.style.width = "fit-content";
+
+    // loop through length of array and display user initials and score
+    for (var i = 0; i < userArray.length; i++) {
+        // assign score and initials values coming from array
+        var userScore = userArray[i].score;
+        var userInitials = userArray[i].initials;
+
+        // create li tag, append to ordered list
+        var userInfo = document.createElement("li");
+        listScore.appendChild(userInfo);
+        userInfo.textContent = userInitials + " - " + userScore;
+    }
 }
 
 startQuiz();
