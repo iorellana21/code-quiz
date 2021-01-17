@@ -39,12 +39,12 @@ User can click 'View Scores' button or 'Start Quiz' button.
 ![alt text](https://raw.githubusercontent.com/iorellana21/code-quiz/main/assets/code-quiz-main-page.png "code-quiz-main-page")
 
 ## Questions Page
-![alt text](questions "code-quiz-question-page")
+![alt text](https://raw.githubusercontent.com/iorellana21/code-quiz/main/assets/Question.png "code-quiz-question-page")
 
 ## User initials Page
-![alt text](initials "code-quiz-initials-page")
+![alt text](https://raw.githubusercontent.com/iorellana21/code-quiz/main/assets/userInitials.png "code-quiz-initials-page")
 ## Score Page
-![alt text](score "code-quiz-score-page")
+![alt text](https://raw.githubusercontent.com/iorellana21/code-quiz/main/assets/scores.png "code-quiz-score-page")
 
 
 ---
