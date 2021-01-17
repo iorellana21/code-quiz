@@ -1,6 +1,8 @@
 # Code Quiz Challenge
 ## Description
 Coding Quiz Challenge application where user goes through multiple choice questions before timer runs out. Incorrect answers will deduct timer by 5 seconds. At the end, user inputs initials and a score table appears - displaying user initials and users score.
+
+**Currently working on displaying total score when user is entering initials and on scores page
 ## What Was Done
 * Build HTML pages with different templates
 * Build CS page

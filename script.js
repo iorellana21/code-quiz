@@ -1,3 +1,8 @@
+// get main-nav
+var mainNav = document.querySelector("#main-nav");
+// get sub-nav
+var subNav = document.querySelector("#sub-nav");
+
 // get main-page
 var mainPage = document.querySelector("#main-page");
 // get quiz-page
@@ -21,10 +26,12 @@ var timerId = document.querySelector("#timer");
 // set timer
 var timer = 60;
 
+// total score output
+var totalScoreOutput = document.querySelector("#total-score");
 // score count
 var scoreCount = 0;
 // total score
-var totalScore = document.querySelector("#total-score");
+var totalScore = 0;
 
 // variable to display question
 var question = document.querySelector("#question");
@@ -73,8 +80,12 @@ function startQuiz() {
     startBtn.addEventListener("click", function (event) {
         console.log("Start Quiz button has been clicked");
         // update page with quiz page by applying/removing .inactive class
-        mainPage.classList.toggle("inactive");
-        quizPage.classList.toggle("inactive");
+        mainNav.classList.remove("inactive");
+        mainPage.classList.add("inactive");
+        subNav.classList.add("inactive");
+        quizPage.classList.remove("inactive");
+        userPage.classList.add("inactive");
+        highscorePage.classList.add("inactive");
 
         // timer
         var questionInterval = setInterval(function () {
@@ -84,102 +95,118 @@ function startQuiz() {
             if (timer === 0 || questionIndex === questionArr.length) {
                 // clear timerId
                 timerId.textContent = "";
-                // clear question
-                question.textContent = "";
-                // clear choices
-                container.textContent = "";
                 // stop timer
                 clearInterval(questionInterval);
-                // redirecting to High Scores page
-                document.location.href = "/Users/fish/Desktop/ru-coding-bootcamp/my-ru-repos/code-quiz/highscore.html";
+                // redirecting to page for user initials
+                highScores();
             }
             // if false, subtract timer by 1 until reaches 0 or questions asked reach total questions
             timer--;
         }, 1000);
-
         // display question and choices
         showQuestions();
     });
 }
 
-// function to show questions when Start Quiz button is clicked
+// function to show questions
 function showQuestions() {
-
     // make both variables empty
     question.textContent = "";
     container.textContent = "";
 
-    // create h2 tag to display question, append to #question and display current question to h2 tag
-    var questionTag = document.createElement("h2");
-    question.appendChild(questionTag);
-    questionTag.textContent = questionArr[questionIndex].question;
+    // check if all questions has been asked
+    if (questionIndex < questionArr.length) {
+        // create h2 tag to display question, append to #question and display current question to h2 tag
+        var questionTag = document.createElement("h2");
+        question.appendChild(questionTag);
+        // display current question
+        questionTag.textContent = questionArr[questionIndex].question;
 
-    // variable to contain answer for current question
-    var correctAnswer = questionArr[questionIndex].answerIndex;
+        // create ordered list and append to page
+        var listTag = document.createElement("ol");
+        container.appendChild(listTag);
 
-    // create ordered list and append to page
-    var listTag = document.createElement("ol");
-    container.appendChild(listTag);
+        // variable to contain answer for current question
+        var correctAnswer = questionArr[questionIndex].answerIndex;
 
-    // loop to create li tags to display number of choices per question based on questionIndex
-    for (var i = 0; i < questionArr[questionIndex].choices.length; i++) {
+        // loop to create li tags to display number of choices per question based on questionIndex
+        for (var i = 0; i < questionArr[questionIndex].choices.length; i++) {
 
-        // create li tag to hold choice, append to ordered list and display each choice
-        var choiceTag = document.createElement("li");
-        listTag.appendChild(choiceTag);
-        choiceTag.textContent = questionArr[questionIndex].choices[i];
+            // create li tag to hold choice, append to ordered list and display each choice
+            var choiceTag = document.createElement("li");
+            listTag.appendChild(choiceTag);
+            choiceTag.textContent = questionArr[questionIndex].choices[i];
 
-        // what happens when one of the choices has been selected
-        choiceTag.addEventListener("click", function (event) {
-            console.log("QUESTION");
+            // what happens when one of the choices has been selected
+            choiceTag.addEventListener("click", function (event) {
+                console.log("QUESTION");
 
-            // variable to contain the users choice
-            var userChoice = event.target.textContent;
-            // show user choice
-            console.log("User chose: " + userChoice);
-            // show correct answer
-            console.log("correct answer: " + questionArr[questionIndex].choices[correctAnswer]);
+                // variable to contain the users choice
+                var userChoice = event.target.textContent;
+                // show user choice
+                console.log("User chose: " + userChoice);
+                // show correct answer
+                console.log("correct answer: " + questionArr[questionIndex].choices[correctAnswer]);
 
-            if (userChoice === questionArr[questionIndex].choices[correctAnswer]) {
-                console.log("correct!");
-                scoreCount++;
-                console.log("Score:  " + scoreCount);
-            }
-            else {
-                console.log("incorrect!");
-                timer = timer - 5;
-            }
-            // increase questionIndex by 1
-            questionIndex++;
-            // rerun function until timer reaches 0 or questionIndex reaches total questions
-            showQuestions();
-        });
+                if (userChoice === questionArr[questionIndex].choices[correctAnswer]) {
+                    console.log("correct!");
+                    scoreCount++;
+                    console.log("Current Score: " + scoreCount);
+                }
+                else {
+                    console.log("incorrect!");
+                    timer = timer - 5;
+                }
+                // increase questionIndex by 1
+                questionIndex++;
+                // update total score
+                totalScore = scoreCount;
+                // rerun function until timer reaches 0 or questionIndex reaches total questions
+                showQuestions();
+            });
+        }
     }
+    // else {
+    //     highScores();
+    // }
 }
 
-// function when Submit button is clicked
+// function to navigate to userPage when quiz is over
 function highScores() {
-    submitBtn.addEventListener("click", function (event) {
-        // update page with highscore page by applying/removing .inactive class
-        userPage.classList.toggle("inactive");
-        highscorePage.classList.toggle("inactive");
+    // opens userPage for to display total score and ask for user input
+    mainNav.classList.add("inactive");
+    quizPage.classList.add("inactive");
+    subNav.classList.remove("inactive");
+    userPage.classList.remove("inactive");
 
-        // tutoring session
+    // display total score
+    totalScoreOutput.textContent = totalScore;
+
+    submitBtn.addEventListener("click", function (event) {
+
+        userPage.classList.add("inactive");
+        highscorePage.classList.remove("inactive");
+
+        // store user initials
         var userInitials = userInput.value;
+        // display initials
         console.log(userInitials);
 
-        var totalScore = scoreCount;
-
-        // empty array to have score and initials pushed into
+        // create an array that checks if there is info in the 'users' key in localStorage
+        // if no items, creates the first index in the array
+        // if there are items, explands the array and adds another index
         var array = JSON.parse(localStorage.getItem("users")) || [];
 
+        // object containing totalScore and userInitials
         var user = {
             score: totalScore,
             initials: userInitials
         };
 
+        // push values from user object to array
         array.push(user);
 
+        // store array data as an item inside 'users' key
         localStorage.setItem("users", JSON.stringify(array));
 
         // create ordered list and append to page to contain user initials and score
@@ -189,7 +216,7 @@ function highScores() {
         listScore.style.margin = "0 auto";
         listScore.style.width = "fit-content";
 
-
+        // loop through length of array and display user initials and score
         for (var i = 0; i < array.length; i++) {
 
             // assign score and initials values coming from array
@@ -204,18 +231,34 @@ function highScores() {
     });
 }
 
-// function when View Highscores button is clicked - SEE IF YOU CAN REDIRECT TO HIGHSCORE TABLE PAGE
+// function when View Scores button is clicked
 function viewHighScores() {
     viewBtn.addEventListener("click", function (event) {
-        // redirect to High Scores page
-        document.location.href = "/Users/fish/Desktop/ru-coding-bootcamp/my-ru-repos/code-quiz/highscore.html";
+        console.log("View Scores button has been clicked");
+        // redirect to Scores page
+        mainNav.classList.add("inactive");
+        mainPage.classList.add("inactive");
+        quizPage.classList.add("inactive");
+        subNav.classList.remove("inactive");
+        highscorePage.classList.remove("inactive");
+
     });
 }
 
-// function when Back to Main page button is clicked - THIS IS GOOD AND DOES NOT NEED TO BE TOUCHED
+// function when Back to Main page button is clicked
 function backToMainPage() {
     mainPageBtn.addEventListener("click", function (event) {
-        // redirect back to index.html page
-        document.location.href = "/Users/fish/Desktop/ru-coding-bootcamp/my-ru-repos/code-quiz/index.html";
+        console.log("Back to Main Page button has been clicked or page has been refreshed");
+        // clear timerId
+        timerId.textContent = "";
+        // redirect back to mainPage
+        mainNav.classList.remove("inactive");
+        mainPage.classList.remove("inactive");
+        subNav.classList.add("inactive");
+        highscorePage.classList.add("inactive");
     });
 }
+
+startQuiz();
+viewHighScores();
+backToMainPage();
